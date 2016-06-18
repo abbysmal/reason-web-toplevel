@@ -1,15 +1,8 @@
 all: toplevel.js eval.js
 
 
-OCPINDENT=$(shell ocamlfind query ocp-indent -format "-package %p.lib" 2> /dev/null)
-HIGLO=$(shell ocamlfind query higlo.ocaml -format "-package %p -rectypes" 2> /dev/null)
+HIGLO=$(shell ocamlfind query higlo.reason -format "-package %p -rectypes" 2> /dev/null)
 DERIVING=$(shell ocamlfind query js_of_ocaml.deriving -format "%p" 2> /dev/null)
-ASYNC=$(shell ocamlfind query js_of_ocaml.async -format "%p" 2> /dev/null)
-
-CPPO_OPT=
-ifneq ($(OCPINDENT),)
-CPPO_OPT+= -D ocpindent
-endif
 
 ifneq ($(HIGLO),)
 CPPO_OPT+= -D higlo
@@ -28,7 +21,7 @@ JSFILES= +weak.js +toplevel.js +dynlink.js +nat.js
 PACKAGES= \
 	lwt bigarray tyxml.functor \
 	react reactiveData \
-	js_of_ocaml $(DERIVING) $(ASYNC_PKG) \
+	js_of_ocaml $(DERIVING)\
 	js_of_ocaml.tyxml \
 	js_of_ocaml.toplevel \
 	str \
@@ -39,22 +32,6 @@ ifeq ($(WITH_GRAPHICS),YES)
 JSFILES += +graphics.js
 PACKAGES += graphics js_of_ocaml.graphics
 CPPO_OPT+= -D graphics
-endif
-
-ifeq ($(ARCH_32BIT),YES)
-ifneq ($(ASYNC),)
-ASYNC_PKG=core_kernel async_kernel js_of_ocaml.async
-JSFILES += +bin_prot.js +core_kernel.js
-endif
-endif
-
-ifeq ($(METAOCAML),1)
-BER_EXPORT=trx runcode print_code
-BER=metalib.cma bertop.cmo \
-	${addprefix -export-unit , ${BER_EXPORT}}
-#METAOCAML DOES NOT WORK WITH CAMLP4
-SYNTAXES=
-CPPO_OPT+= -D metaocaml
 endif
 
 #-jsopt "--pretty"
@@ -69,7 +46,6 @@ TOPLEVEL_NAME=toplevel
 TOPLEVEL_OBJS=colorize.cmo indent.cmo toplevel.cmo
 $(TOPLEVEL_NAME).js: $(TOPLEVEL_OBJS) examples.ml test_dynlink.cmo
 	$(MKTOP) \
-	$(BER) \
 	$(OCPINDENT) $(HIGLO) \
 	$(TOPLEVEL_OBJS) \
 	${addprefix -jsopt , ${JSFILES}} \
@@ -104,7 +80,7 @@ colorize.cmo: colorize.cmi
 		-package js_of_ocaml.syntax,lwt,str,reason.parser,js_of_ocaml.tyxml,js_of_ocaml.toplevel \
 		-package base64 \
 		-I camlp4 \
-		$(OCPINDENT) $(HIGLO) \
+		$(HIGLO) \
 		$< -c $@
 clean::
 	rm -f *.cm[io] *.byte *.native *.js

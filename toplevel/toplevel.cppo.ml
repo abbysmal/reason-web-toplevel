@@ -19,12 +19,13 @@
  *)
 
 open Lwt
+let reason_header =
+"    ___  _______   ________  _  __
+   / _ \\\/ __/ _ | / __/ __ \\\/ |/ /
+  / , _/ _// __ |_\\\ \\\/ /_/ /    /
+ /_/|_/___/_/ |_/___/\\\____/_/|_/ "
 
-#ifdef metaocaml
-let compiler_name = "MetaOCaml"
-#else
 let compiler_name = "OCaml"
-#endif
 
 let by_id s = Dom_html.getElementById s
 let by_id_coerce s f  = Js.Opt.get (f (Dom_html.getElementById s)) (fun () -> raise Not_found)
@@ -73,17 +74,12 @@ let setup_toplevel () =
                | Lwt.Fail e -> raise e
                | Lwt.Sleep -> failwith \"Lwt_main.run: thread didn't return\"
             end");
-  let header1 =
-      Printf.sprintf "        %s version %%s" compiler_name in
+  let header1 = Printf.sprintf
+      "%s\n\nReason Meta Language Utility, running OCaml version %%s" reason_header in
   let header2 = Printf.sprintf
-      "     Compiled with Js_of_ocaml version %s" Sys_js.js_of_ocaml_version in
+      "Compiled with Js_of_ocaml version %s\n\n" Sys_js.js_of_ocaml_version in
   exec' (Printf.sprintf "Format.printf \"%s@.\" Sys.ocaml_version;;" header1);
   exec' (Printf.sprintf "Format.printf \"%s@.\";;" header2);
-  (if JsooTop.get_camlp4_syntaxes () <> []
-  then
-    let header3 = Printf.sprintf
-        "     'JsooTop.get_camlp4_syntaxes ()' to get loaded syntax extensions" in
-    exec' (Printf.sprintf "Format.printf \"%s@.@.\";;" header3));
   exec' ("#enable \"pretty\";;");
   exec' ("#enable \"shortvar\";;");
   Sys.interactive := true;
@@ -158,7 +154,7 @@ let rec iter_on_sharp ~f x =
   | Some n -> iter_on_sharp ~f n
 
 let setup_share_button ~output =
-  do_by_id "btn-share" (fun e ->
+  do_by_id "share-tab" (fun e ->
     e##style##display <- Js.string "block";
     e##onclick <- Dom_html.handler (fun _ ->
       (* get all ocaml code *)
@@ -180,10 +176,9 @@ let setup_share_button ~output =
         let frags = List.remove_assoc "code" frags @ ["code",code_encoded] in
         Url.encode_arguments frags in
       let uri = Url.string_of_url url ^ "#" ^ frag in
+      let node = Js.Unsafe.coerce @@ by_id "share-link" in
       let append_url str =
-        let dom = Tyxml_js.Html5.(
-            p [ pcdata "Share this url : "; a ~a:[a_href str] [ pcdata str ]]) in
-        Dom.appendChild output (Tyxml_js.To_dom.of_element dom)
+        node##value <- (Js.string str)
       in
       Lwt.async (fun () ->
       Lwt.catch (fun () ->
@@ -191,13 +186,12 @@ let setup_share_button ~output =
         then failwith "Cannot shorten url with file scheme"
         else
 	  let uri = Printf.sprintf "http://is.gd/create.php?format=json&url=%s" (Url.urlencode uri) in
-          Lwt.bind (Jsonp.call uri) (fun o ->
-	    let str = Js.to_string o##shorturl in
-            append_url str;
-            Lwt.return_unit)
+   Lwt.bind (Jsonp.call uri) (fun o ->
+       let str = Js.to_string o##shorturl in
+       append_url str;
+     Lwt.return_unit)
       )
       (fun exn ->
-       Format.eprintf "Could not generate short url. reason: %s@." (Printexc.to_string exn);
        append_url uri;
        Lwt.return_unit));
       Js._false))
@@ -284,7 +278,7 @@ let run _ =
     let content' =
       let len = String.length content in
       if try content <> "" && content.[len-1] <> ';' && content.[len-2] <> ';' with _ -> true
-      then content ^ ";;"
+      then content ^ ";"
       else content in
     current_position := output##childNodes##length;
     textbox##value <- Js.string "";

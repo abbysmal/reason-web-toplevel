@@ -1,10 +1,9 @@
-
 let text ~a_class:cl s =
   Tyxml_js.Html5.(span ~a:[a_class [cl]] [pcdata s])
 
 #ifdef higlo
 let ocaml ~a_class:cl s =
-  let tks = Higlo.parse ~lang:"ocaml" s in
+  let tks = Higlo.parse ~lang:"reason" s in
   let span' cl s = Tyxml_js.Html5.(span ~a:[a_class [cl]] [pcdata s]) in
   let make_span = function
     | Higlo.Bcomment s -> span' "comment" s

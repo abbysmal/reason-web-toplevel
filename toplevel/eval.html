@@ -9,13 +9,13 @@
   </head>
   <body>
     <script type="text/ocaml" stdout="script1" stderr="script1">
-      let rec fact x =
-      if x = 0
+      let rec fact x =>
+      if x == 0
       then 1
       else x * fact (pred x)
-      let _ = Format.printf "fact 10 = %d@." (fact 10)
-      let _ = Format.eprintf "fact 20 = %d@." (fact 20)
-      let _ = print_endline (Js.to_string ((jsnew Js.date_now())##toString()))
+      let _ = Format.printf "fact 10 = %d@." (fact 10);
+      let _ = Format.eprintf "fact 20 = %d@." (fact 20);
+      let _ = print_endline (Js.to_string ((jsnew Js.date_now())##toString()));
     </script>
     <div id="script1"> </div>
 
