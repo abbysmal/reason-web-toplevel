@@ -8,8 +8,7 @@ opam pin add --yes merlin https://github.com/the-lambda-church/merlin.git#87ea0e
 opam pin add --yes merlin_extend https://github.com/def-lkb/merlin-extend.git#ef634252a793542b05ec00a90f3c17de8fe0a357
 opam pin add --yes higlo https://github.com/Engil/higlo.git#reason-lexer
 opam pin add --yes reason https://github.com/Engil/reason.git#better-findlib
-opam update --yes
-opam install --yes tyxml deriving
-opam install --yes react graphics js_of_ocaml.2.7
+opam install --yes tyxml deriving reactivedata
+opam install --yes react graphics js_of_ocaml
 cd toplevel
 WITH_GRAPHICS=YES opam config exec -- make
