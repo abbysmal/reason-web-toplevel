@@ -12,4 +12,4 @@ opam update --yes
 opam install --yes tyxml deriving
 opam install --yes react graphics js_of_ocaml.2.7
 cd toplevel
-WITH_GRAPHICS=YES make
+WITH_GRAPHICS=YES opam config exec -- make
