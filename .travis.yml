@@ -3,6 +3,5 @@ sudo: required
 script: bash -ex .travis-ci.sh
 os:
   - linux
-  - osx
 env:
   - OCAML_VERSION=4.02
