@@ -9,7 +9,7 @@ opam pin add --yes merlin_extend https://github.com/def-lkb/merlin-extend.git#ef
 opam pin add --yes higlo https://github.com/Engil/higlo.git#reason-lexer
 opam pin add --yes reason https://github.com/Engil/reason.git#better-findlib
 opam update --yes
-opam install --yes tyxml
+opam install --yes tyxml deriving
 opam install --yes react graphics js_of_ocaml.2.7
 cd toplevel
 WITH_GRAPHICS=YES make
