@@ -8,3 +8,5 @@ opam pin add --yes merlin_extend https://github.com/def-lkb/merlin-extend.git#ef
 opam pin add --yes higlo https://github.com/Engil/higlo.git#reason-lexer
 opam pin add --yes reason https://github.com/Engil/reason.git#better-findlib
 opam install --yes js_of_ocaml
+cd toplevel
+WITH_GRAPHICS=YES make
