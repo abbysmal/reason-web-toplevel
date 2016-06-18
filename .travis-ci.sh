@@ -3,10 +3,7 @@ sh .travis-ocaml.sh
 
 eval `opam config env`
 
-git clone https://github.com/chenglou/BetterErrors.git ./BetterErrors
-cd ./BetterErrors
-make
-opam pin add BetterErrors ./
+opam pin add --yes BetterErrors https://github.com/chenglou/BetterErrors.git
 opam pin add --yes merlin https://github.com/the-lambda-church/merlin.git#87ea0e7998c04f16e4821676c27f19d3879dc2d1
 opam pin add --yes merlin_extend https://github.com/def-lkb/merlin-extend.git#ef634252a793542b05ec00a90f3c17de8fe0a357
 opam pin add --yes higlo https://github.com/Engil/higlo.git#reason-lexer
