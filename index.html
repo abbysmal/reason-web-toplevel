@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+          "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Reason toplevel</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <style>
+
+      code, kbd, pre, samp {
+      font-family: Menlo,Monaco,Consolas,monospace;
+      }
+      #about {
+      margin-top: 20px;
+      }
+      body,html {
+      height: 100%;
+      background-color:#fff;
+      }
+
+      #toplevel-container {
+      width: 50%;
+      background-color: #2B303B;
+      color: #C0C5CE;
+      overflow: auto;
+      overflow-x: hidden;
+      height: 100%;
+      float:left;
+      padding:10px;
+      padding-top: 20px;
+      }
+
+      #toplevel-container pre#output {
+      padding: 0px;
+      }
+
+      #toplevel-container #output {
+      background-color:transparent;
+      color: #ccc;
+      border: none;
+      line-height:18px;
+      font-size: 12px;
+      margin-bottom: 0px;
+      }
+
+      #toplevel-container textarea {
+      width:90%;
+      line-height:18px;
+      font-size: 12px;
+      background-color: transparent;
+      color: #C0C5CE;
+      border: 0;
+      resize: none;
+      outline: none;
+      font-family: Menlo,Monaco,Consolas,monospace;
+      font-weight: bold;
+      float:left;
+      margin: 0px;
+      padding:0px;
+      }
+      #toplevel-container #sharp {
+      float: left;
+      line-height:18px;
+      font-size: 12px;
+      font-family: Menlo,Monaco,Consolas,monospace;
+      white-space: pre;
+      }
+      .sharp:before{
+      content:"# ";
+      line-height:18px;
+      font-size: 12px;
+      font-family: Menlo,Monaco,Consolas,monospace;
+      }
+      .caml{
+      color: #C0C5CE;
+      }
+      #toplevel-side{
+      background-color: #fff;
+      position:relative;
+      width:45%;
+      height: 100%;
+      padding-top: 20px;
+      overflow: auto;
+      text-align:justify;
+      float:left;
+      margin-left:30px;
+      color: rgb(80, 80, 80);
+      font-family: Helvetica Neue, Open Sans, sans-serif;
+      }
+      img.logo {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      padding-bottom: 20px;
+      }
+      #toplevel-side ul{
+      padding: 0px;
+      list-style-type: none;
+      }
+
+      .stderr {
+      color: #C0C5CE;
+      }
+      .stdout {
+
+      }
+      .errorloc{
+      border-bottom-width: 3px;
+      border-bottom-style: solid;
+      border-bottom-color: #BF616A;
+      }
+      canvas {
+      border: 1px dashed black;
+      float: left;
+      margin: 7px;
+      }
+      #output canvas {
+      background-color: #464646;
+      float: none;
+      display: block;
+      border: 1px dashed while;
+      margin: 7px;
+      }
+      #output img {
+      display:block;
+      }
+      #toplevel-examples {
+      width: 270px;
+      float: left;
+      }
+      #toplevel-examples .list-group-item{
+      padding: 5px 15px;
+      }
+      #btn-share {
+      float:right;
+      margin-top:-20px;
+      background-color:rgb(92, 129, 184);
+      border-color: rgb(70, 75, 128);
+      padding: 1px 5px;
+      display:none;
+      }
+      .clear { clear:both; }
+
+      .pills {
+      font-size: 0.9em;
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      }
+      .nav>li>a {
+      font-family: montserrat, sans-serif;
+      color: #fff;
+      background-color: #dd4b39;
+      padding: 3px 25px;
+      border-bottom: solid 3px #d24736;
+      -webkit-border-radius: 1px;
+      border-radius: 1px;
+      margin-right: 15px;
+      }
+      .nav-pills>li>a:hover { background-color: #d24736;}
+      .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover
+      {
+      background-color: #d24736;
+      }
+      .sharp .id { color: #C0C5CE ; font-style: italic }
+      .sharp .kw0 { color: #8FA1B3; font-weight: bold ;}
+      .sharp .kw1 { color: #A3BE8C ; font-weight: bold ;}
+      .sharp .kw2 { color: #EBCB8B; font-weight: bold ;}
+      .sharp .kw3 { color: #B48EAD; font-weight: bold ;}
+      .sharp .kw4 { color: #96B5B4; font-weight: bold ;}
+      .sharp .comment { color: #65737E ; font-style: italic ; }
+      .sharp .string { color: #A3BE8C; font-weight: bold ; }
+      .sharp .text { }
+      .sharp .numeric { color: #EBCB8B; }
+      .sharp .directive { font-style: italic ; color : #B48EAD; } ;
+      .sharp .escape { color: #orange ; }
+      .sharp .symbol0 { color: orange ; font-weight: bold ; }
+      .sharp .symbol1 { color: #993300 ; font-weight: bold ; }
+      .sharp .constant { color: rgb(0, 152, 255); }
+    </style>
+    <script type="text/javascript">
+
+      window.onhashchange = function() { window.location.reload() }
+      var hash = window.location.hash.replace(/^#/,"");
+      var fields = hash.split(/&/);
+      var prefix = "";
+      var version = "";
+      for(var f in fields){
+        var data = fields[f].split(/=/);
+        if(data[0] == "version"){
+          version = data[1].replace(/%20|%2B/g,"+");
+          break;
+        }
+      }
+      function load_script(url){
+        var fileref=document.createElement('script');
+        fileref.setAttribute("type","text/javascript");
+        fileref.setAttribute("src", prefix+(version==""?"":(version+"/"))+url);
+        document.getElementsByTagName("head")[0].appendChild(fileref);
+      }
+      load_script("stdlib.cmis.js");
+      load_script("js_of_ocaml.cmis.js");
+      load_script("js_of_ocaml.toplevel.cmis.js");
+      load_script("js_of_ocaml.tyxml.cmis.js");
+      load_script("graphics.cmis.js");
+      load_script("js_of_ocaml.graphics.cmis.js");
+      load_script("lwt.cmis.js");
+      load_script("react.cmis.js");
+      load_script("reactiveData.cmis.js");
+      load_script("dynlink.cmis.js");
+      load_script("bigarray.cmis.js");
+      load_script("toplevel.js");
+      $(document).ready(function(){
+      $(".nav .disabled>a").on("click", function(e) { e.preventDefault(); return false; });
+      $(".nav-tabs a").click(function(){
+      $(this).tab('show');
+      });
+});
+    </script>
+  </head>
+
+  <body>
+    <div id="toplevel-container">
+      <pre id="output"></pre>
+      <div>
+	<div id="sharp" class="sharp"></div>
+	<textarea id="userinput">Loading ...</textarea>
+      </div>
+    </div>
+    <div id="toplevel-side">
+      <img class="logo" src="reason.png" width=60% />
+
+      <div class="pills">
+	<ul id="myTabs" class="nav nav-pills" role="tablist">
+	  <li role="presentation" class=""><a href="#command" id="command-tab" role="tab" data-toggle="tab" aria-controls="command" aria-expanded="false">Command</a></li>
+	  <li role="presentation" class=""><a href="#sample" role="tab" id="sample-tab" data-toggle="tab" aria-controls="sample" aria-expanded="false">Sample</a></li>
+	  <li role="presentation" class=""><a href="#generated" role="tab" id="generated-tab" data-toggle="tab" aria-controls="generated" aria-expanded="false">Generated JavaScript</a></li>
+	  <li role="presentation" class=""><a href="#share" id="share-tab" role="tab" data-toggle="tab" aria-controls="share" aria-expanded="false">Share</a></li>
+	</ul>
+      </div>
+      <div id="myTabContent" class="tab-content">
+	<div role="tabpanel" class="tab-pane fade in active" id="about" aria-labelledby="about-tab">
+	  <h4>Reason</h4>
+	  <h5>A new developer experience for rapidly building fast, safe systems.</h5>
+	  <p>
+	    <code>Reason</code> is a new interface to OCaml - a highly expressive dialect of the ML language featuring type inference and static type checking.</p>
+
+	  <p><code>Reason</code> provides a new syntax and toolchain for editing, building, and sharing code, and will evolve in the open as a community collaboration. <code>Reason</code> already has contributors across several organizations/companies.</p>
+	</div>
+	<div role="tabpanel" class="tab-pane fade" id="command" aria-labelledby="command-tab">
+	  <h4>Command</h4>
+	  <table class="table table-striped table-condensed">
+	    <tbody class>
+	      <tr>
+		<td>Enter/Return</td>
+		<td>Submit code</td>
+	      </tr>
+	      <tr>
+		<td>Ctrl + Enter</td>
+		<td>Newline</td>
+	      </tr>
+	      <tr>
+		<td>Up / Down</td>
+		<td>Browse history</td>
+	      </tr>
+	      <tr>
+		<td>Ctrl + l</td>
+		<td>Clear display</td>
+	      </tr>
+	      <tr>
+		<td>Ctrl + k</td>
+		<td>Reset toplevel</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</div>
+
+	<div role="tabpanel" class="tab-pane fade" id="sample" aria-labelledby="sample-tab">
+	  <h4>Try to execute samples</h4>
+	  <div id="toplevel-examples" class="list-group"></div>
+	  <canvas width=200 height=200 id="test-canvas"></canvas>
+	</div>
+
+	<div role="tabpanel" class="tab-pane fade" id="generated" aria-labelledby="generated-tab">
+	  <h4 class="clear">See the generated javascript code</h4>
+	  <pre id="last-js">
+	  </pre>
+	</div>
+	<div role="tabpanel" class="tab-pane fade" id="share" aria-labelledby="share-tab">
+	  <h4 class="clear">Share this REPL session</h4>
+	  <div class="input-group">
+	    <span class="input-group-addon" id="basic-addon1">URL</span>
+	    <input type="text" class="form-control" id="share-link" readonly aria-describedby="basic-addon1">
+	    </div>
+	</div>
+
+      </body>
+    </html>
