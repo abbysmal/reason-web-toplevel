@@ -13,7 +13,7 @@ after_script:
   - eval "$(ssh-agent -s)"
   - ssh-add gh-js
   - git checkout gh-pages
-  - cp toplevel/*.js toplevel/*.html
+  - cp toplevel/*.js toplevel/*.html .
   - git add *.js *.html
   - git config --global user.email "travis@travis-ci.com"
   - git config --global user.name "Travis"
