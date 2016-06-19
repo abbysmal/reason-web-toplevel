@@ -185,7 +185,7 @@ let setup_share_button ~output =
         if is_file
         then failwith "Cannot shorten url with file scheme"
         else
-	  let uri = Printf.sprintf "http://is.gd/create.php?format=json&url=%s" (Url.urlencode uri) in
+	  let uri = Printf.sprintf "https://is.gd/create.php?format=json&url=%s" (Url.urlencode uri) in
    Lwt.bind (Jsonp.call uri) (fun o ->
        let str = Js.to_string o##shorturl in
        append_url str;
