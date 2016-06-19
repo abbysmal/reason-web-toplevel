@@ -21,4 +21,4 @@ after_script:
   - git config --global user.email "travis@travis-ci.com"
   - git config --global user.name "Travis"
   - git commit -m "snapshot $(date '+%m/%d/%y %H:%M')"
-  - git origin deploy gh-pages
+  - git push origin gh-pages
