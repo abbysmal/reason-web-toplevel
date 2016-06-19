@@ -40,7 +40,7 @@ MKTOP=jsoo_mktop -verbose $(SAFESTRING) \
 	-dont-export-unit gc \
 	-jsopt "--disable shortvar" \
 	${addprefix -export-package , ${PACKAGES}} \
-	${addprefix -export-unit , html5_types html5_sigs xml_wrap } \
+	${addprefix -export-unit , html_types html_sigs xml_wrap } \
 
 TOPLEVEL_NAME=toplevel
 TOPLEVEL_OBJS=colorize.cmo indent.cmo toplevel.cmo
