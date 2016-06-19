@@ -11,6 +11,7 @@ before_install:
 
 after_script:
   - eval "$(ssh-agent -s)"
+  - chmod 600 gh-js
   - ssh-add gh-js
   - git clone git@github.com:Engil/reason-web-toplevel.git deploy
   - cd deploy
