@@ -12,11 +12,12 @@ before_install:
 after_script:
   - eval "$(ssh-agent -s)"
   - ssh-add gh-js
+  - git clone git@github.com:Engil/reason-web-toplevel.git deploy
+  - cd deploy
   - git checkout gh-pages
-  - cp toplevel/*.js toplevel/*.html .
-  - git add *.js *.html
+  - cp ../toplevel/*.js ../toplevel/*.html ../toplevel/*.png .
+  - git add *.js *.html *.png
   - git config --global user.email "travis@travis-ci.com"
   - git config --global user.name "Travis"
   - git commit -m "snapshot $(date '+%m/%d/%y %H:%M')"
-  - git push origin gh-pages
-  - cd ..
+  - git origin deploy gh-pages
