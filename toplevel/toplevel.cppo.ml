@@ -316,7 +316,7 @@ let run _ =
 
   let meta e =
     let b = Js.to_bool in
-    b e##ctrlKey || b e##shiftKey || b e##altKey || b e##metaKey in
+    b e##ctrlKey || b e##metaKey in
 
   begin (* setup handlers *)
     textbox##onkeyup <-   Dom_html.handler (fun _ -> Lwt.async (resize ~container ~textbox); Js._true);
