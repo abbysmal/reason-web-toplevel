@@ -1,4 +1,4 @@
-# reason-web-toplevel
+# reason-web-toplevel [![Build Status](https://travis-ci.org/Engil/reason-web-toplevel.svg?branch=master)](https://travis-ci.org/Engil/reason-web-toplevel)
 A Reason web toplevel built using js_of_ocaml
 
 To make this word, you need
