@@ -77,6 +77,11 @@
       .caml{
       color: #C0C5CE;
       }
+      code {
+      background: #f8f7f7;
+      color: rgb(80, 80, 80);
+      padding: 1px 3px;
+      }
       #toplevel-side{
       background-color: #fff;
       position:relative;
@@ -255,6 +260,20 @@
 	    <code>Reason</code> is a new interface to OCaml - a highly expressive dialect of the ML language featuring type inference and static type checking.</p>
 
 	  <p><code>Reason</code> provides a new syntax and toolchain for editing, building, and sharing code, and will evolve in the open as a community collaboration. <code>Reason</code> already has contributors across several organizations/companies.</p>
+	  <h5>About this toplevel</h5>
+	  <p>
+	    This is a full <code>Reason</code> toplevel running directly inside your browser.
+	  </p>
+	  <p>
+	    Every required parts of the <code>OCaml</code> compiler and the <code>Reason</code> toolchain have been compiled to JavaScript (using <code>js_of_ocaml</code>) and sent to your browser, and every statements are evaluated on your machine, without relying on a distant server. (See by yourself and disable your network card!)
+	  </p>
+	  <h5>Credits</h5>
+	  <p>
+	    This toplevel was initially developped as a part of the <code>js_of_ocaml</code> project. <a href="http://ocsigen.org/js_of_ocaml/">More about js_of_ocaml</a>
+	  </p>
+	  <p>
+	    Many thanks to <a href="https://github.com/hhugo">Hugo Heuzard</a>, <a href="https://www.irif.univ-paris-diderot.fr/~vouillon/">Jerome Vouillon</a>, and the rest of <a href="http://ocsigen.org/">the Ocsigen Team.</a>
+	  </p>
 	</div>
 	<div role="tabpanel" class="tab-pane fade" id="command" aria-labelledby="command-tab">
 	  <h4>Command</h4>
