@@ -25,7 +25,7 @@ PACKAGES= \
 	js_of_ocaml.tyxml \
 	js_of_ocaml.toplevel \
 	str \
-	reason.parser \
+	reason.lib \
 	dynlink
 
 ifeq ($(WITH_GRAPHICS),YES)
@@ -77,7 +77,7 @@ colorize.cmo: colorize.cmi
 	ocamlfind ocamlc -c -package js_of_ocaml,js_of_ocaml.tyxml $<
 %.cmo:%.ml
 	ocamlfind ocamlc -c -syntax camlp4o $(SAFESTRING) \
-		-package js_of_ocaml.syntax,lwt,str,reason.parser,js_of_ocaml.tyxml,js_of_ocaml.toplevel \
+		-package js_of_ocaml.syntax,lwt,str,reason.lib,js_of_ocaml.tyxml,js_of_ocaml.toplevel \
 		-package base64 \
 		-I camlp4 \
 		$(HIGLO) \
